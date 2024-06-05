@@ -22,7 +22,7 @@ Before you begin, ensure you have the following:
 
 ### **Step 1: Download the Deployment File**
 
-First, download the deployment file by visiting the following URL: [dvwa_host.yaml](https://github.com/Oscarce10/sec-labs/DVWA-host/blob/master/dvwa_host.yaml). This file contains the infrastructure as code (IaC) necessary for deploying the DVWA application on an EC2 instance.
+First, download the deployment file by visiting the following URL: [dvwa_host.yaml](https://github.com/Oscarce10/sec-labs/blob/master/DVWA-host/dvwa_host.yaml). This file contains the infrastructure as code (IaC) necessary for deploying the DVWA application on an EC2 instance.
 
 ### **Step 2: Access the AWS Console**
 
