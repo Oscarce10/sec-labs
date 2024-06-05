@@ -1,0 +1,45 @@
+# dvwa_host_cf.yaml
+
+AWSTemplateFormatVersion: "2010-09-09"
+Resources:
+  EC2Instance:
+    Type: "AWS::EC2::Instance"
+    Properties:
+      ImageId: "ami-04b70fa74e45c3917"
+      InstanceType: "t2.medium"
+      EbsOptimized: false
+      SecurityGroupIds:
+        - !Ref SecurityGroup
+      BlockDeviceMappings:
+        - DeviceName: "/dev/sda1"
+          Ebs:
+            Encrypted: false
+            VolumeSize: 8
+            VolumeType: "gp3"
+            DeleteOnTermination: true
+      UserData: "IyEvYmluL2Jhc2gKc3VkbyBhcHQgdXBkYXRlCnN1ZG8gYXB0IHVwZ3JhZGUgLXkKc3VkbyBhcHQgaW5zdGFsbCAteSBwaHAgYXBhY2hlMiBtYXJpYWRiLXNlcnZlciBwaHAtbXlzcWxpIHBocC1nZCBsaWJhcGFjaGUyLW1vZC1waHAKbWtkaXIgLXAgL3Zhci93d3cvaHRtbCAmJiBjZCAiJF8iCnN1ZG8gZ2l0IGNsb25lIGh0dHBzOi8vZ2l0aHViLmNvbS9kaWdpbmluamEvRFZXQQpjZCBEVldBL2NvbmZpZwpzdWRvIHNlcnZpY2UgYXBhY2hlMiByZXN0YXJ0CnN1ZG8gY3AgY29uZmlnLmluYy5waHAuZGlzdCBjb25maWcuaW5jLnBocApzdWRvIG15c3FsIC11IHJvb3QgLWUgImNyZWF0ZSBkYXRhYmFzZSBkdndhOyBjcmVhdGUgdXNlciBkdndhQGxvY2FsaG9zdCBpZGVudGlmaWVkIGJ5ICdwYXNzd29yZCc7IGdyYW50IGFsbCBvbiBkdndhLiogdG8gZHZ3YUBsb2NhbGhvc3Q7IGZsdXNoIHByaXZpbGVnZXM7IgpzdWRvIGNoZ3JwIHd3dy1kYXRhIC92YXIvd3d3L2h0bWwvRFZXQS9oYWNrYWJsZS91cGxvYWRzLwpzdWRvIGNobW9kIGcrdyAvdmFyL3d3dy9odG1sL0RWV0EvaGFja2FibGUvdXBsb2Fkcy8KZmlsZT0kKGZpbmQgL2V0YyAtdHlwZSBmIC1uYW1lICJwaHAuaW5pIiAyPiYxIHwgc2VkIDFxIDI+JjEgfCBzZWQgMXEpCnN1ZG8gc2VkICAtaSAgLWUgJ3MvYWxsb3dfdXJsX2luY2x1ZGUgPSBPZmYvYWxsb3dfdXJsX2luY2x1ZGUgPSBPbi8nIC1lICdzL2FsbG93X3VybF9mb3BlbiA9IE9mZi9hbGxvd191cmxfZm9wZW4gPSBPbi8nICAkZmlsZQ=="
+      Tags:
+        - Key: "Name"
+          Value: "DVWA Host"
+      HibernationOptions:
+        Configured: false
+      EnclaveOptions:
+        Enabled: false
+
+  SecurityGroup:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: "Enable HTTP, HTTPS, SSH"
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
